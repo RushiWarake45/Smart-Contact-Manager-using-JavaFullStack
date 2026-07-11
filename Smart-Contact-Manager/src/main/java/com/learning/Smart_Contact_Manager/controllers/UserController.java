@@ -1,7 +1,9 @@
 package com.learning.Smart_Contact_Manager.controllers;
 
+import com.learning.Smart_Contact_Manager.dtos.UserDto;
 import com.learning.Smart_Contact_Manager.entities.User;
 import com.learning.Smart_Contact_Manager.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +23,8 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public User saveUser(@RequestBody User user){
-        return this.userService.saveUser(user);
+    public User saveUser(@Valid @RequestBody UserDto userdto){
+        return this.userService.saveUser(userdto);
     }
 
 }
