@@ -1,6 +1,8 @@
 package com.learning.Smart_Contact_Manager.controllers;
 
+import com.learning.Smart_Contact_Manager.dtos.JwtResponse;
 import com.learning.Smart_Contact_Manager.dtos.LoginDto;
+import com.learning.Smart_Contact_Manager.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,10 +13,13 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     @Autowired
+    private JwtService jwtService;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginDto dto) {
+    public JwtResponse login(@RequestBody LoginDto dto) {
 
         authenticationManager.authenticate(
 
@@ -28,7 +33,8 @@ public class AuthController {
 
         );
 
-        return "Login Successful";
+        String token = jwtService.generateToken(dto.getEmail());
+        return new JwtResponse(token);
 
     }
 }

@@ -4,7 +4,9 @@ import com.learning.Smart_Contact_Manager.entities.Contact;
 import com.learning.Smart_Contact_Manager.entities.User;
 import com.learning.Smart_Contact_Manager.services.ContactService;
 import com.learning.Smart_Contact_Manager.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,11 +22,15 @@ public class ContactController {
 
     @GetMapping("/contacts")
     public List<Contact> getAllContacts(){
+
         return this.contactService.getAllContacts();
     }
     @PostMapping("/contacts")
-    public void saveContact(@RequestBody Contact contact){
-        this.contactService.saveContact(contact);
+    public Contact saveContact(@RequestBody Contact contact, Authentication authentication){
+
+        String email = authentication.getName();
+        return contactService.saveContact(contact, email);
+
     }
 
 }
