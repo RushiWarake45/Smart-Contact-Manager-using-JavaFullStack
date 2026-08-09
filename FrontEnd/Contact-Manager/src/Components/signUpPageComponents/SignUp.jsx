@@ -1,8 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {ToastContainer, toast} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
 const SignUp = () => {
+
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -17,7 +21,7 @@ const SignUp = () => {
        }));
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if(!formData.name.trim()){
             toast.error("Name is required");
@@ -43,14 +47,24 @@ const SignUp = () => {
             toast.error("Invalid email format");
             return;
         }
-        toast.success("Sign up successful!");
 
-        console.log(formData);
-        setFormData({
+        try{
+            const response = await axios.post("http://localhost:8080/users", formData);
+            toast.success("Sign up successful!");
+            setFormData({
             name: "",
             email: "",
             password: ""
         });
+        navigate("/user-dashboard");
+
+        }
+        catch(error){
+            toast.error("An error occurred during sign up. Please try again.");
+            return;
+        }
+        
+        
 
     }
     return (
@@ -83,7 +97,7 @@ const SignUp = () => {
 
                     
                     <button type="submit " className="bg-[#483AEA] text-white py-2 px-4 rounded-md hover:bg-blue-600">
-                        Sign In
+                        Create Account
                     </button>
                     <p className="text-gray-600 text-sm text-center">
                         Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Log in</Link>
