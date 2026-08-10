@@ -36,4 +36,10 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(uDto.getPassword()));
         return this.userRepo.save(user);
     }
+
+    public User getUserByEmail(String email){
+        return userRepo.findByEmail(email).orElse(null);
+
+
+    }
 }

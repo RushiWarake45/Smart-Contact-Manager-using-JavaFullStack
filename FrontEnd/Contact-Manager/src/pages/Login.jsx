@@ -49,6 +49,7 @@ const Login = () => {
                 
                 const response = await axios.post("http://localhost:8080/auth/login", loginData);
                 toast.success("Login successful!");
+                localStorage.setItem("token", response.data.token);
             
                  navigate("/user-dashboard");
               } catch (error) {
@@ -72,7 +73,7 @@ const Login = () => {
                     <h4 className="text-gray-600">Sign in to continue to your account.</h4>
                 </div>
 
-                <form className="signUp-form flex flex-col border border-gray-300 rounded-md p-8 gap-5 w-[400px] shadow-lg" onSubmit={handleSubmit}>
+                <form className="signUp-form flex flex-col rounded-md p-8 gap-5 w-[400px] shadow-[0_0_25px_rgba(0,0,0,0.20)] bg-white w-full max-w-md" onSubmit={handleSubmit}>
                     <div className="inputField flex flex-col gap-1">
                         <label htmlFor="email">Email</label>
                         <input type="email" placeholder="abc@example.com" className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" onChange={handleChange} name="email" value={loginData.email}/>

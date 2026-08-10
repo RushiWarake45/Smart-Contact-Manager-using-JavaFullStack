@@ -56,7 +56,8 @@ const SignUp = () => {
             email: "",
             password: ""
         });
-        navigate("/user-dashboard");
+         localStorage.setItem("token", response.data.token);
+        navigate("/login");
 
         }
         catch(error){
@@ -81,7 +82,7 @@ const SignUp = () => {
                     <h4 className="text-gray-600">Free forever. No credit card required.</h4>
                 </div>
 
-                <form className="signUp-form flex flex-col border border-gray-300 rounded-md p-8 gap-5 w-[400px] shadow-lg" onSubmit={handleSubmit}>
+                <form className="signUp-form flex flex-col rounded-md p-8 gap-5 w-[400px] shadow-[0_0_25px_rgba(0,0,0,0.20)] bg-white w-full max-w-md" onSubmit={handleSubmit}>
                     <div className="inputField flex flex-col gap-1">
                         <label htmlFor="name">Name</label>
                         <input type="text" placeholder="abc xyz" className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" onChange={handleChange} name="name" value={formData.name} />
@@ -94,7 +95,6 @@ const SignUp = () => {
                         <label htmlFor="password">Password</label>
                         <input type="password" placeholder="minimum 8 characters" className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" onChange={handleChange} name="password" value={formData.password} />
                     </div>
-
                     
                     <button type="submit " className="bg-[#483AEA] text-white py-2 px-4 rounded-md hover:bg-blue-600">
                         Create Account
