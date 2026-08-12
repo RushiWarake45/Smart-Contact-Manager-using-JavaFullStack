@@ -40,6 +40,7 @@ const ContactDetails = ({ contact }) => {
                             .split(" ")
                             .map(word => word[0])
                             .join("")
+                            .toUpperCase()
                         }
 
                     </div>
@@ -52,11 +53,11 @@ const ContactDetails = ({ contact }) => {
                         </h1>
 
                         <p className="text-gray-500 mt-1">
-                            {contact.company}
+                            {contact.email}
                         </p>
 
                         <span className="inline-block mt-2 bg-[#EDE9FE] text-[#6D28D9] px-3 py-1 rounded-full text-sm">
-                            {contact.category}
+                            {contact.tag}
                         </span>
 
                     </div>

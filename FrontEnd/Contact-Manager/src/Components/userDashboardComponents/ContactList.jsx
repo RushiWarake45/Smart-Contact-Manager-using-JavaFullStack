@@ -1,6 +1,6 @@
 import { FiSearch, FiPlus, FiStar } from "react-icons/fi";
 
-const ContactList = ({ contacts, selectedContact, setSelectedContact }) => {
+const ContactList = ({ contacts, selectedContact, setSelectedContact, setShowAddContact }) => {
 
     return (
         <div className="w-[400px] border-r border-gray-200 min-h-[calc(100vh-73px)]">
@@ -24,7 +24,7 @@ const ContactList = ({ contacts, selectedContact, setSelectedContact }) => {
                 </div>
 
                 {/* Add Contact */}
-                <button
+                <button onClick={() => setShowAddContact(true)}
                     className="w-full mt-4 bg-[#483AEA] text-white rounded-xl py-4 flex items-center justify-center gap-2 hover:bg-[#392bc9]"
                 >
 
@@ -60,6 +60,7 @@ const ContactList = ({ contacts, selectedContact, setSelectedContact }) => {
                                 .split(" ")
                                 .map(word => word[0])
                                 .join("")
+                                .toUpperCase()
                             }
 
                         </div>
@@ -83,7 +84,7 @@ const ContactList = ({ contacts, selectedContact, setSelectedContact }) => {
                             </div>
 
                             <p className="text-sm text-gray-500">
-                                {contact.company}
+                                {contact.email}
                             </p>
 
                         </div>
@@ -91,7 +92,7 @@ const ContactList = ({ contacts, selectedContact, setSelectedContact }) => {
 
                         {/* Category */}
                         <span className="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded-full">
-                            {contact.category}
+                            {contact.tag}
                         </span>
 
                     </div>
