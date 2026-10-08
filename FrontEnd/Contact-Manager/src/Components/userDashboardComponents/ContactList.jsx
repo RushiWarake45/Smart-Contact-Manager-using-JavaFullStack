@@ -1,6 +1,16 @@
 import { FiSearch, FiPlus, FiStar } from "react-icons/fi";
+import { useState } from "react";
 
-const ContactList = ({ contacts, selectedContact, setSelectedContact, setShowAddContact }) => {
+const ContactList = ({ contacts, selectedContact, setSelectedContact, setShowAddContact, isFavorite }) => {
+
+    const [search, setSearch] = useState("");
+
+    const filteredContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(search.toLowerCase()) ||
+    contact.email.toLowerCase().includes(search.toLowerCase()) ||
+    contact.phone.includes(search)
+);
+
 
     return (
         <div className="w-[400px] border-r border-gray-200 min-h-[calc(100vh-73px)]">
@@ -18,6 +28,8 @@ const ContactList = ({ contacts, selectedContact, setSelectedContact, setShowAdd
                     <input
                         type="text"
                         placeholder="Search contacts..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
                         className="w-full rounded-xl border border-gray-200 px-12 py-4 outline-none focus:border-[#483AEA]"
                     />
 
@@ -39,8 +51,8 @@ const ContactList = ({ contacts, selectedContact, setSelectedContact, setShowAdd
 
             {/* Contact list */}
             <div>
-
-                {contacts.map((contact) => (
+               {
+                  filteredContacts.map((contact) => (
 
                     <div
                         key={contact.id}
@@ -88,16 +100,21 @@ const ContactList = ({ contacts, selectedContact, setSelectedContact, setShowAdd
                             </p>
 
                         </div>
-
+                       
+                        {contact.favourite && (
+                            <FiStar className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                        )}
+                       
 
                         {/* Category */}
                         <span className="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded-full">
                             {contact.tag}
                         </span>
-
+                       
                     </div>
 
                 ))}
+                
 
             </div>
 

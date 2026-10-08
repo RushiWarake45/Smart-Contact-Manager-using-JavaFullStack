@@ -13,7 +13,16 @@ public class Contact {
     private String email;
     private String phone;
 
+    public boolean isFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        isFavourite = favourite;
+    }
+
     private String company;
+    private boolean isFavourite=false;
 
     public String getAddress() {
         return address;

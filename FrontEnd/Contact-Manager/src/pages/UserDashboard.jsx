@@ -5,14 +5,66 @@ import Sidebar from "../Components/userDashboardComponents/Sidebar";
 import ContactList from "../Components/userDashboardComponents/ContactList";
 import { AddContactModal } from "../Components/userDashboardComponents/AddContactModal";
 import ContactDetails from "../Components/userDashboardComponents/ContactDetails";
+import { toast } from "react-toastify";
 
 const Userdashboard = () => {
     const [user, setUser] = useState(null);
     const [selectedContact, setSelectedContact] = useState(null);
     const [showAddContact, setShowAddContact] = useState(false);
-
-
     const [contacts,setContacts] = useState([]);
+    const [showEditContact, setShowEditContact] = useState(false);
+    // const [isFavorite, setIsFavorite] = useState(false);
+
+    const handleDelete = async (id) => {
+    try {
+        const token = localStorage.getItem("token");
+
+
+        await axios.delete(
+            `http://localhost:8080/contacts/${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+
+        setContacts(prevContacts =>
+            prevContacts.filter(contact => contact.id !== id)
+        );
+
+        setSelectedContact(null);
+
+        toast.success("Contact deleted successfully!");
+
+    } catch (error) {
+        console.error("Error deleting contact:", error);
+    }
+};
+
+const handleFavouriteUpdate = (updatedContact) => {
+    setContacts(prevContacts =>
+        prevContacts.map(contact =>
+            contact.id === updatedContact.id ? updatedContact : contact
+        )
+    );
+    setSelectedContact(updatedContact);
+};
+
+const handleContactUpdated = (updatedContact) => {
+
+    setContacts(prevContacts =>
+        prevContacts.map(contact =>
+            contact.id === updatedContact.id
+                ? updatedContact
+                : contact
+        )
+    );
+
+    setSelectedContact(updatedContact);
+};
+
+    
 
     const handleContactAdded=(newContact)=>{
       setContacts((prev)=> [
@@ -95,12 +147,22 @@ const Userdashboard = () => {
                         selectedContact={selectedContact}
                         setSelectedContact={setSelectedContact}
                         setShowAddContact={setShowAddContact}
+                        // isFavorite={isFavorite}
                     />
 
 
                     {/* Contact details */}
                     <ContactDetails
                         contact={selectedContact}
+                        selectedContact={selectedContact}
+                        handleDelete={handleDelete}
+                        // setIsFavorite={setIsFavorite}
+                        // isFavorite={isFavorite}
+                        onFavoriteUpdate={handleFavouriteUpdate}
+                        setShowEditContact={setShowEditContact}
+                        showEditContact={showEditContact}
+                        onContactUpdated={handleContactUpdated}
+
                     />
 
                     {showAddContact && (
