@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-const Sidebar = () => {
+const Sidebar = ({ allCount, favoriteCount, clientsCount, partnersCount, friendsCount, workCount, setCurrFilter, currFilter }) => {
 
-    const [selected, setSelected] = useState("All");
+    // const [selected, setSelected] = useState("All");
 
     return (
         <div className="w-[280px] border-r border-gray-200 flex flex-col">
@@ -14,29 +14,34 @@ const Sidebar = () => {
 
                 <div className="flex flex-col gap-2">
 
-                    <button onClick={() => setSelected("All")} className={`flex justify-between px-4 py-3 rounded-xl ${selected === "All" ? "bg-[#483AEA] text-white" : "hover:bg-gray-100"}`} >
+                    <button onClick={() => setCurrFilter("All")} className={`flex justify-between px-4 py-3 rounded-xl cursor-pointer ${currFilter === "All" ? "bg-[#483AEA] text-white" : "hover:bg-gray-100"}`} >
                         <span>All</span>
-                        <span>8</span>
+                        <span>{allCount}</span>
                     </button>
 
-                    <button onClick={() => setSelected("Work")} className={`flex justify-between px-4 py-3 rounded-xl ${selected === "Work" ? "bg-[#483AEA] text-white" : "hover:bg-gray-100"}`} >
+                    <button onClick={() => setCurrFilter("Work")} className={`flex justify-between px-4 py-3 rounded-xl cursor-pointer ${currFilter === "Work" ? "bg-[#483AEA] text-white" : "hover:bg-gray-100"}`} >
                         <span>Work</span>
-                        <span>3</span>
+                        <span>{workCount}</span>
                     </button>
 
-                    <button onClick={() => setSelected("Client")} className={`flex justify-between px-4 py-3 rounded-xl ${selected === "Client" ? "bg-[#483AEA] text-white" : "hover:bg-gray-100"}`} >
+                    <button onClick={() => setCurrFilter("Client")} className={`flex justify-between px-4 py-3 rounded-xl cursor-pointer ${currFilter === "Client" ? "bg-[#483AEA] text-white" : "hover:bg-gray-100"}`} >
                         <span>Client</span>
-                        <span>2</span>
+                        <span>{clientsCount}</span>
                     </button>
 
-                    <button onClick={() => setSelected("Partner")} className={`flex justify-between px-4 py-3 rounded-xl ${selected === "Partner" ? "bg-[#483AEA] text-white" : "hover:bg-gray-100"}`} >
+                    <button onClick={() => setCurrFilter("Partner")} className={`flex justify-between px-4 py-3 rounded-xl cursor-pointer ${currFilter === "Partner" ? "bg-[#483AEA] text-white" : "hover:bg-gray-100"}`} >
                         <span>Partner</span>
-                        <span>2</span>
+                        <span>{partnersCount}</span>
                     </button>
 
-                    <button onClick={() => setSelected("Friend")} className={`flex justify-between px-4 py-3 rounded-xl ${selected === "Friend" ? "bg-[#483AEA] text-white" : "hover:bg-gray-100"}`} >
+                    <button onClick={() => setCurrFilter("Friend")} className={`flex justify-between px-4 py-3 rounded-xl cursor-pointer ${currFilter === "Friend" ? "bg-[#483AEA] text-white" : "hover:bg-gray-100"}`} >
                         <span>Friend</span>
-                        <span>1</span>
+                        <span>{friendsCount}</span>
+                    </button>
+
+                    <button onClick={() => setCurrFilter("Favorite")} className={`flex justify-between px-4 py-3 rounded-xl cursor-pointer ${currFilter === "Favorite" ? "bg-[#483AEA] text-white" : "hover:bg-gray-100"}`} >
+                        <span>Favorite</span>
+                        <span>{favoriteCount}</span>
                     </button>
 
                 </div>
@@ -45,7 +50,7 @@ const Sidebar = () => {
 
             <div className="mt-auto border-t border-gray-200 p-6">
                 <p>
-                    <span className="font-medium">8</span> total contacts
+                    <span className="font-medium">{allCount}</span> total contacts
                 </p>
             </div>
 

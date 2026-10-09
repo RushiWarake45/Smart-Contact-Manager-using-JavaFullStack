@@ -1,22 +1,24 @@
 import { FiSearch, FiPlus, FiStar } from "react-icons/fi";
 import { useState } from "react";
 
-const ContactList = ({ contacts, selectedContact, setSelectedContact, setShowAddContact, isFavorite }) => {
+const ContactList = ({ contacts, selectedContact, setSelectedContact, setShowAddContact, isFavorite,currFilter }) => {
 
     const [search, setSearch] = useState("");
 
     const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(search.toLowerCase()) ||
-    contact.email.toLowerCase().includes(search.toLowerCase()) ||
-    contact.phone.includes(search)
-);
+       
+        (currFilter === "All" || contact.tag === currFilter || (currFilter === "Favorite" && contact.favourite)) &&
+        (contact.name.toLowerCase().includes(search.toLowerCase()) ||
+        contact.email.toLowerCase().includes(search.toLowerCase()) ||
+        contact.phone.includes(search))
+    );
 
 
     return (
-        <div className="w-[400px] border-r border-gray-200 min-h-[calc(100vh-73px)]">
+        <div className="w-[400px] border-r border-gray-200 min-h-[calc(100vh-73px)] flex flex-col min-h-0 flex-shrink-0">
 
             {/* Search + Add */}
-            <div className="p-5 border-b border-gray-200">
+            <div className="p-5 border-b border-gray-200 shrink-0">
 
                 {/* Search */}
                 <div className="relative">
@@ -50,14 +52,15 @@ const ContactList = ({ contacts, selectedContact, setSelectedContact, setShowAdd
 
 
             {/* Contact list */}
-            <div>
+            <div className="flex-1 overflow-y-auto [scrollbar-width:thin]
+                [scrollbar-color:#e5e7eb_transparent]">
                {
                   filteredContacts.map((contact) => (
 
                     <div
                         key={contact.id}
                         onClick={() => setSelectedContact(contact)}
-                        className={`flex items-center gap-4 px-5 py-4 cursor-pointer border-b border-gray-100
+                        className={`flex items-center gap-4 px-5 py-4 cursor-pointer border-b border-gray-100 
                         ${
                             selectedContact?.id === contact.id
                                 ? "bg-[#F5F3FF] border-l-2 border-l-[#483AEA]"
@@ -107,7 +110,7 @@ const ContactList = ({ contacts, selectedContact, setSelectedContact, setShowAdd
                        
 
                         {/* Category */}
-                        <span className="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded-full">
+                        <span className="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded-full w-15">
                             {contact.tag}
                         </span>
                        

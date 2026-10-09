@@ -13,7 +13,17 @@ const Userdashboard = () => {
     const [showAddContact, setShowAddContact] = useState(false);
     const [contacts,setContacts] = useState([]);
     const [showEditContact, setShowEditContact] = useState(false);
+    const [currFilter, setCurrFilter] = useState("All");
+
+
     // const [isFavorite, setIsFavorite] = useState(false);
+
+    const allCount=contacts.length;
+    const favoriteCount=contacts.filter(contact=>contact.favourite).length;
+    const clientsCount=contacts.filter(contact=>contact.tag==="Client").length;
+    const partnersCount=contacts.filter(contact=>contact.tag==="Partner").length;
+    const friendsCount=contacts.filter(contact=>contact.tag==="Friend").length;
+    const workCount=contacts.filter(contact=>contact.tag==="Work").length;
 
     const handleDelete = async (id) => {
     try {
@@ -138,7 +148,16 @@ const handleContactUpdated = (updatedContact) => {
                 <div className="flex min-h-[calc(100vh-73px)]">
 
                     {/* Left sidebar */}
-                    <Sidebar />
+                    <Sidebar 
+                    allCount={allCount}
+                    favoriteCount={favoriteCount}
+                    clientsCount={clientsCount}
+                    partnersCount={partnersCount}
+                    friendsCount={friendsCount}
+                    workCount={workCount}
+                    setCurrFilter={setCurrFilter}
+                    currFilter={currFilter}
+                    />
 
 
                     {/* Contact list */}
@@ -147,6 +166,7 @@ const handleContactUpdated = (updatedContact) => {
                         selectedContact={selectedContact}
                         setSelectedContact={setSelectedContact}
                         setShowAddContact={setShowAddContact}
+                        currFilter={currFilter}
                         // isFavorite={isFavorite}
                     />
 
