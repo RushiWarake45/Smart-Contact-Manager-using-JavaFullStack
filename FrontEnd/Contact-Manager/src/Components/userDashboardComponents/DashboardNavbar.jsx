@@ -20,14 +20,14 @@ const handleLogout = () => {
                             navigate("/");
                             toast.success("Logged out successfully!");
                         }}
-                        className="bg-red-500 text-white px-3 py-1 rounded"
+                        className="bg-red-500 text-white px-3 py-1 rounded cursor-pointer hover:bg-red-600 transition duration-300"
                     >
                         Yes
                     </button>
 
                     <button
                         onClick={closeToast}
-                        className="bg-gray-300 px-3 py-1 rounded"
+                        className="bg-gray-300 px-3 py-1 rounded cursor-pointer hover:bg-gray-400 transition duration-300"
                     >
                         No
                     </button>

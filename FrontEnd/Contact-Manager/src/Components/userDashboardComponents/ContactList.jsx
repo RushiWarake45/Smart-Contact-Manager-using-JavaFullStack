@@ -39,7 +39,7 @@ const ContactList = ({ contacts, selectedContact, setSelectedContact, setShowAdd
 
                 {/* Add Contact */}
                 <button onClick={() => setShowAddContact(true)}
-                    className="w-full mt-4 bg-[#483AEA] text-white rounded-xl py-4 flex items-center justify-center gap-2 hover:bg-[#392bc9]"
+                    className="w-full mt-4 bg-[#483AEA] text-white rounded-xl py-4 flex items-center justify-center gap-2 hover:bg-[#392bc9] cursor-pointer transition duration-300"
                 >
 
                     <FiPlus className="w-5 h-5" />

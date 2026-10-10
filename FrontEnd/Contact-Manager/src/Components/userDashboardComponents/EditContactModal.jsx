@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { IoClose } from "react-icons/io5";
 
+
 export const EditContactModal = ({
     contact,
     onClose,
@@ -33,6 +34,43 @@ export const EditContactModal = ({
     const handleUpdate = async (e) => {
 
         e.preventDefault();
+
+        // Name validation
+    if (!formData.name.trim()) {
+        toast.error("Please enter contact name!");
+        return;
+    }
+
+    if (formData.name.trim().length < 3) {
+        toast.error("Name must contain at least 3 characters!");
+        return;
+    }
+
+    // Email validation
+    if (!formData.email.trim()) {
+        toast.error("Please enter email address!");
+        return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(formData.email.trim())) {
+        toast.error("Please enter a valid email address!");
+        return;
+    }
+
+    // Phone validation (10-digit Indian mobile number)
+    if (!formData.phone.trim()) {
+        toast.error("Please enter phone number!");
+        return;
+    }
+
+    const phoneRegex = /^[6-9]\d{9}$/;
+
+    if (!phoneRegex.test(formData.phone.trim())) {
+        toast.error("Please enter a valid 10-digit mobile number!");
+        return;
+    }
 
         try {
 
@@ -81,7 +119,7 @@ export const EditContactModal = ({
                            <button
                                type="button"
                                onClick={onClose}
-                               className="text-gray-500 hover:text-gray-900"
+                               className="text-gray-500 hover:text-gray-900 cursor-pointer transition duration-300"
                            >
                                <IoClose className="w-6 h-6" />
                            </button>
@@ -214,7 +252,7 @@ export const EditContactModal = ({
                                                        tag: tag
                                                    }))
                                                }
-                                               className={`px-4 py-2 rounded-xl border text-sm ${
+                                               className={`px-4 py-2 rounded-xl border text-sm cursor-pointer transition duration-300 ${
                                                    formData.tag === tag
                                                        ? "bg-[#483AEA] text-white border-[#483AEA]"
                                                        : "border-gray-200 text-[#64748B] hover:bg-gray-50"
@@ -236,14 +274,14 @@ export const EditContactModal = ({
                                    <button
                                        type="button"
                                        onClick={onClose}
-                                       className="rounded-xl border border-gray-200 py-3 font-medium text-gray-800 hover:bg-gray-50"
+                                       className="rounded-xl border border-gray-200 py-3 font-medium text-gray-800 hover:bg-gray-50 cursor-pointer transition duration-300"
                                    >
                                        Cancel
                                    </button>
        
                                    <button
                                        type="submit"
-                                       className="rounded-xl bg-[#483AEA] py-3 font-semibold text-white hover:bg-[#392bc9]"
+                                       className="rounded-xl bg-[#483AEA] py-3 font-semibold text-white hover:bg-[#392bc9] cursor-pointer transition duration-300"
                                    >
                                        Edit contact
                                    </button>

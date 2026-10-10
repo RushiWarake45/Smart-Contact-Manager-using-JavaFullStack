@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const AddContactModal = ({ onClose,onContactAdded }) => {
 
@@ -24,6 +25,45 @@ export const AddContactModal = ({ onClose,onContactAdded }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Name validation
+    if (!formData.name.trim()) {
+        toast.error("Please enter contact name!");
+        return;
+    }
+
+    if (formData.name.trim().length < 3) {
+        toast.error("Name must contain at least 3 characters!");
+        return;
+    }
+
+    // Email validation
+    if (!formData.email.trim()) {
+        toast.error("Please enter email address!");
+        return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(formData.email.trim())) {
+        toast.error("Please enter a valid email address!");
+        return;
+    }
+
+    // Phone validation (10-digit Indian mobile number)
+    if (!formData.phone.trim()) {
+        toast.error("Please enter phone number!");
+        return;
+    }
+
+    const phoneRegex = /^[6-9]\d{9}$/;
+
+    if (!phoneRegex.test(formData.phone.trim())) {
+        toast.error("Please enter a valid 10-digit mobile number!");
+        return;
+    }
+
+
 
    try {
         const token = localStorage.getItem("token");
@@ -57,7 +97,7 @@ export const AddContactModal = ({ onClose,onContactAdded }) => {
                     <button
                         type="button"
                         onClick={onClose}
-                        className="text-gray-500 hover:text-gray-900"
+                        className="text-gray-500 hover:text-gray-900 cursor-pointer transition duration-300"
                     >
                         <IoClose className="w-6 h-6" />
                     </button>
@@ -80,7 +120,7 @@ export const AddContactModal = ({ onClose,onContactAdded }) => {
                                 name="name"
                                 value={formData.name}
                                 onChange={handleChange}
-                                placeholder="Jane Smith"
+                                placeholder="Ritesh Jadhav"
                                 required
                                 className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 outline-none focus:border-[#483AEA] focus:ring-2 focus:ring-[#483AEA]/10"
                             />
@@ -102,7 +142,7 @@ export const AddContactModal = ({ onClose,onContactAdded }) => {
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    placeholder="jane@example.com"
+                                    placeholder="ritu@example.com"
                                     className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 outline-none focus:border-[#483AEA] focus:ring-2 focus:ring-[#483AEA]/10"
                                 />
 
@@ -120,7 +160,7 @@ export const AddContactModal = ({ onClose,onContactAdded }) => {
                                     name="phone"
                                     value={formData.phone}
                                     onChange={handleChange}
-                                    placeholder="+1 (555) 000-0000"
+                                    placeholder="+91 9876543210"
                                     className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 outline-none focus:border-[#483AEA] focus:ring-2 focus:ring-[#483AEA]/10"
                                 />
 
@@ -143,7 +183,7 @@ export const AddContactModal = ({ onClose,onContactAdded }) => {
                                     name="company"
                                     value={formData.company}
                                     onChange={handleChange}
-                                    placeholder="Acme Corp"
+                                    placeholder="Marvns"
                                     className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 outline-none focus:border-[#483AEA] focus:ring-2 focus:ring-[#483AEA]/10"
                                 />
 
@@ -161,7 +201,7 @@ export const AddContactModal = ({ onClose,onContactAdded }) => {
                                     name="address"
                                     value={formData.address}
                                     onChange={handleChange}
-                                    placeholder="New York, NY"
+                                    placeholder="Pune, MH"
                                     className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 outline-none focus:border-[#483AEA] focus:ring-2 focus:ring-[#483AEA]/10"
                                 />
 
@@ -190,7 +230,7 @@ export const AddContactModal = ({ onClose,onContactAdded }) => {
                                                 tag: tag
                                             }))
                                         }
-                                        className={`px-4 py-2 rounded-xl border text-sm ${
+                                        className={`px-4 py-2 rounded-xl border text-sm cursor-pointer transition duration-300 ${
                                             formData.tag === tag
                                                 ? "bg-[#483AEA] text-white border-[#483AEA]"
                                                 : "border-gray-200 text-[#64748B] hover:bg-gray-50"
@@ -212,14 +252,14 @@ export const AddContactModal = ({ onClose,onContactAdded }) => {
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className="rounded-xl border border-gray-200 py-3 font-medium text-gray-800 hover:bg-gray-50"
+                                className="rounded-xl border border-gray-200 py-3 font-medium text-gray-800 hover:bg-gray-50 cursor-pointer transition duration-300"
                             >
                                 Cancel
                             </button>
 
                             <button
                                 type="submit"
-                                className="rounded-xl bg-[#483AEA] py-3 font-semibold text-white hover:bg-[#392bc9]"
+                                className="rounded-xl bg-[#483AEA] py-3 font-semibold text-white hover:bg-[#392bc9] cursor-pointer transition duration-300"
                             >
                                 Add contact
                             </button>

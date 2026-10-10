@@ -17,8 +17,8 @@ export const NavBar = () => {
                 </div>
 
                 <div className="log-op flex items-center gap-5">
-                  <Link to="/login"><button className="cursor-pointer">Login</button></Link>
-                  <Link to="/sign-up"><button className="bg-[#483AEA] text-white px-4 py-2 rounded" >Get Started</button></Link>
+                  <Link to="/login"><button className="cursor-pointer hover:text-black">Login</button></Link>
+                  <Link to="/sign-up"><button className="bg-[#483AEA] text-white px-4 py-2 rounded cursor-pointer hover:bg-[#3a2db8] transition duration-300" >Get Started</button></Link>
                 </div>
                 
             </ul>

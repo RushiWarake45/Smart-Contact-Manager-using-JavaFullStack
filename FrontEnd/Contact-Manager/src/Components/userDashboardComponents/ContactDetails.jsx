@@ -112,14 +112,14 @@ const handleConfirmDelete = async () => {
                         setShowDeleteConfirm(false);
                         setContactToDelete(null);
                     }}
-                    className="px-5 py-2.5 rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50"
+                    className="px-5 py-2.5 rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50 cursor-pointer transition duration-300"
                 >
                     Cancel
                 </button>
 
                 <button
                     onClick={handleConfirmDelete}
-                    className="px-5 py-2.5 rounded-xl bg-red-500 text-white hover:bg-red-600"
+                    className="px-5 py-2.5 rounded-xl bg-red-500 text-white hover:bg-red-600 cursor-pointer transition duration-300"
                 >
                     Yes, Delete
                 </button>

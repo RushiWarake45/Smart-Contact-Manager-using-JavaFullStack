@@ -83,10 +83,10 @@ const Login = () => {
                         <input type="password" placeholder="minimum 8 characters" className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" onChange={handleChange} name="password" value={loginData.password} />
                     </div>
 
-                    <button type="submit" className="bg-[#000000] text-white py-2 px-4 rounded-md hover:bg-black-100">
+                    <button type="submit" className="bg-[#000000] text-white py-2 px-4 rounded-md hover:bg-black-100 cursor-pointer transition duration-300">
                         Sign In
                     </button>
-                    <p className="text-gray-600 text-sm text-center">
+                    <p className="text-gray-600 text-sm text-center cursor-pointer">
                        Don't have an account? <Link to="/sign-up" className="text-blue-500 hover:underline">Sign up</Link>
                     </p>
                 </form>
