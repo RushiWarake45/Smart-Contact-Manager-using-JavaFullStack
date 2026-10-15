@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom"
 export const NavBar = () => {
     return (<>
-        <nav className="navbar p-2">
+        <nav className="navbar p-2 sticky top-0 bg-white z-50">
             <ul className="flex items-center justify-between px-20 py-3">
                 <Link to="/">
                 <div className="logo flex items-center gap-2 cursor-pointer" >
@@ -11,9 +11,9 @@ export const NavBar = () => {
                 </Link>
 
                 <div className="navigations flex items-center gap-10 text-[#6B7280]">
-                <li><Link to="/features">Features</Link></li>
-                <li><a className="hover:text-black" href="/about">About</a></li>
-                <li><a className="hover:text-black" href="/contact">Contact</a></li>
+                <li><a href="#features" className="hover:text-black">Features</a></li>
+                <li><a className="hover:text-black" href="#about">About</a></li>
+                <li><a className="hover:text-black" href="#contact">Contact</a></li>
                 </div>
 
                 <div className="log-op flex items-center gap-5">

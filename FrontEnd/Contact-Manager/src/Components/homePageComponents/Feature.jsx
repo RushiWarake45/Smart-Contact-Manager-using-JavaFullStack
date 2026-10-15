@@ -2,7 +2,7 @@ export const Feature = () => {
   return (
     <>
 
-    <div className="feature-text flex flex-col items-center justify-center text-center gap-2 py-8 ">
+    <div className="feature-text flex flex-col items-center justify-center text-center gap-2 py-8  "id="features">
       <h1 className="text-4xl font-bold font-arial text-gray-900 sm:text-3xl lg:text-4xl">Everything you need to stay connected</h1>
       <p className="text-sm text-gray-600 font-arial uppercase tracking-[0.3em]">Built for people who take their relationships seriously.</p>
     </div>
