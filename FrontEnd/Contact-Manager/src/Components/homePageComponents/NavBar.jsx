@@ -11,7 +11,7 @@ export const NavBar = () => {
                 </Link>
 
                 <div className="navigations flex items-center gap-10 text-[#6B7280]">
-                <li><a className="hover:text-black" href="/">Features</a></li>
+                <li><Link to="/features">Features</Link></li>
                 <li><a className="hover:text-black" href="/about">About</a></li>
                 <li><a className="hover:text-black" href="/contact">Contact</a></li>
                 </div>

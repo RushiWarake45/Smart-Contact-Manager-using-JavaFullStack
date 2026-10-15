@@ -13,6 +13,7 @@ import Userdashboard from './pages/UserDashboard'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import { ToastContainer } from 'react-toastify'
+import Feature from './Components/homePageComponents/Feature'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/sign-up" element={<SignUpPage/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/user-dashboard" element={<Userdashboard/>} />
+        <Route path="/features" element={<Feature/>} />
       </Routes>
       <ToastContainer position="top-right" autoClose={3000} theme="light"/>
     </>
