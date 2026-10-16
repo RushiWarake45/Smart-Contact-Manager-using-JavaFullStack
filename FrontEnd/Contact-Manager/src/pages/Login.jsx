@@ -1,99 +1,375 @@
+
 import axios from "axios";
 import { useState } from "react";
-import { Link,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
 
-    const [loginData,setLoginData]=useState({
-        email:"",
-        password:""
-    });
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    const handleChange=(e)=>{
-         const {name,value}=e.target;
-         setLoginData((prevData)=>({
-             ...prevData,
-            [name]:value
-         })
-           
-        );
-    }
-    
-    const handleSubmit= async(e)=>{
-       e.preventDefault();
-              if(!loginData.email.trim()){
-                  toast.error("Email is required");
-                  return;
-              }
-              if(loginData.password.length < 8){
-                  toast.error("Password must be at least 8 characters long");
-                  return;
-              }
-              if(!loginData.password){
-                  toast.error("Password is required");
-                  return;
-              }
-              if(!loginData.email.trim()){
-                  toast.error("Email is required");
-                  return;
-              }
-              if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginData.email)){
-                  toast.error("Invalid email format");
-                  return;
-              }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-              try{
-                
-                const response = await axios.post("http://localhost:8080/auth/login", loginData);
-                toast.success("Login successful!");
-                localStorage.setItem("token", response.data.token);
-            
-                 navigate("/user-dashboard");
-              } catch (error) {
-                toast.error("Invalid email or password");
-              }
+    setLoginData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-      
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!loginData.email.trim()) {
+      toast.error("Email is required");
+      return;
     }
 
-    return (
-        <>
-            <div className="signUp-container flex flex-col items-center justify-center">
-                <Link to="/">
-                    <div className="signUp-logo flex items-center gap-2 cursor-pointer pt-6" >
-                        <img src="navbar1.png" alt="Logo" className="h-14 w-14" />
-                        <h3 className="font-sans font-semibold text-xl">Personify</h3>
-                    </div>
-                </Link>
-                <div className="signUp-text flex flex-col items-center gap-2 p-5 mb-4">
-                    <h1 className="text-3xl font-bold">Welcome Back</h1>
-                    <h4 className="text-gray-600">Sign in to continue to your account.</h4>
+    if (!loginData.password) {
+      toast.error("Password is required");
+      return;
+    }
+
+    if (loginData.password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginData.email)) {
+      toast.error("Invalid email format");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await axios.post(
+        "http://localhost:8080/auth/login",
+        loginData
+      );
+
+      localStorage.setItem("token", response.data.token);
+
+      toast.success("Login successful!");
+
+      navigate("/user-dashboard");
+    } catch (error) {
+      toast.error("Invalid email or password");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const inputClass =
+    "w-full rounded-xl border border-gray-200 bg-gray-50/70 px-4 py-3 text-sm text-gray-900 outline-none transition-all duration-200 placeholder:text-gray-400 hover:border-gray-300 focus:border-[#483AEA] focus:bg-white focus:ring-4 focus:ring-[#483AEA]/10";
+
+  return (
+    <div className="min-h-screen bg-[#F7F8FC] px-4 py-6 sm:px-6 lg:px-8">
+      <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-6xl items-center justify-center">
+
+        {/* Main Login Card */}
+        <div className="grid w-full max-w-5xl overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-[0_20px_70px_rgba(31,41,55,0.09)] lg:grid-cols-2">
+
+          {/* Left Decorative Panel */}
+          <div className="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-[#483AEA] via-[#5748ED] to-[#3325B9] p-10 text-white lg:flex xl:p-14">
+
+            {/* Decorative Circles */}
+            <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full border border-white/10" />
+            <div className="pointer-events-none absolute -right-10 -top-10 h-52 w-52 rounded-full border border-white/10" />
+            <div className="pointer-events-none absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5" />
+
+            {/* Brand */}
+            <Link
+              to="/"
+              className="relative z-10 inline-flex w-fit items-center gap-3"
+            >
+              <img
+                src="/navbar1.png"
+                alt="Personify Logo"
+                className="h-12 w-12 rounded-xl bg-white p-1 object-contain"
+              />
+
+              <span className="text-2xl font-bold tracking-tight">
+                Personify<span className="text-purple-200">.</span>
+              </span>
+            </Link>
+
+            {/* Hero Content */}
+            <div className="relative z-10 my-12">
+              <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-medium tracking-wide text-purple-50">
+                <span className="h-2 w-2 rounded-full bg-green-300" />
+                WELCOME BACK
+              </span>
+
+              <h1 className="max-w-md text-4xl font-bold leading-tight xl:text-5xl">
+                Good to see you{" "}
+                <span className="text-purple-200">again.</span>
+              </h1>
+
+              <p className="mt-6 max-w-md text-base leading-7 text-purple-100">
+                Sign in to Personify and pick up right where you left off.
+                Your personalized experience is waiting for you.
+              </p>
+
+              {/* Highlights */}
+              <div className="mt-9 space-y-5">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/15 text-lg">
+                    ✓
+                  </span>
+                  <span className="text-sm text-white/90">
+                    Access your personal dashboard
+                  </span>
                 </div>
 
-                <form className="signUp-form flex flex-col rounded-md p-8 gap-5 w-[400px] shadow-[0_0_25px_rgba(0,0,0,0.20)] bg-white w-full max-w-md" onSubmit={handleSubmit}>
-                    <div className="inputField flex flex-col gap-1">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" placeholder="abc@example.com" className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" onChange={handleChange} name="email" value={loginData.email}/>
-                    </div>
-                    <div className="inputField flex flex-col gap-1">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" placeholder="minimum 8 characters" className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" onChange={handleChange} name="password" value={loginData.password} />
-                    </div>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/15 text-lg">
+                    ✓
+                  </span>
+                  <span className="text-sm text-white/90">
+                    Continue where you left off
+                  </span>
+                </div>
 
-                    <button type="submit" className="bg-[#000000] text-white py-2 px-4 rounded-md hover:bg-black-100 cursor-pointer transition duration-300">
-                        Sign In
-                    </button>
-                    <p className="text-gray-600 text-sm text-center cursor-pointer">
-                       Don't have an account? <Link to="/sign-up" className="text-blue-500 hover:underline">Sign up</Link>
-                    </p>
-                </form>
-
+                <div className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/15 text-lg">
+                    ✓
+                  </span>
+                  <span className="text-sm text-white/90">
+                    Enjoy your Personify experience
+                  </span>
+                </div>
+              </div>
             </div>
-            
-        </>
-    );
-}
+
+            <p className="relative z-10 text-xs text-purple-200">
+              © {new Date().getFullYear()} Personify. All rights reserved.
+            </p>
+          </div>
+
+          {/* Right Login Form */}
+          <div className="flex flex-col justify-center px-5 py-9 sm:px-10 sm:py-12 lg:px-10 xl:px-14">
+
+            {/* Mobile Brand */}
+            <Link
+              to="/"
+              className="mb-8 flex w-fit items-center gap-2 lg:hidden"
+            >
+              <img
+                src="/navbar1.png"
+                alt="Personify Logo"
+                className="h-10 w-10 object-contain"
+              />
+
+              <span className="text-xl font-bold tracking-tight text-gray-900">
+                Personify<span className="text-[#483AEA]">.</span>
+              </span>
+            </Link>
+
+            {/* Heading */}
+            <div className="mb-8">
+              <div className="mb-4 inline-flex items-center rounded-lg bg-[#483AEA]/10 px-3 py-1.5 text-xs font-semibold text-[#483AEA]">
+                WELCOME BACK
+              </div>
+
+              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                Sign in to Personify
+              </h2>
+
+              <p className="mt-3 text-sm leading-6 text-gray-500 sm:text-base">
+                Enter your credentials to access your account.
+              </p>
+            </div>
+
+            {/* Login Form */}
+            <form onSubmit={handleSubmit} className="space-y-5">
+
+              {/* Email */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="mb-2 block text-sm font-semibold text-gray-700"
+                >
+                  Email address
+                </label>
+
+                <div className="relative">
+                  <svg
+                    className="absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <path d="m3 7 9 6 9-6" />
+                  </svg>
+
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    placeholder="you@example.com"
+                    value={loginData.email}
+                    onChange={handleChange}
+                    className={`${inputClass} pl-11`}
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
+              <div>
+                <div className="mb-2 flex items-center justify-between">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-semibold text-gray-700"
+                  >
+                    Password
+                  </label>
+                </div>
+
+                <div className="relative">
+                  <svg
+                    className="absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="4" y="10" width="16" height="11" rx="2" />
+                    <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                  </svg>
+
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    autoComplete="current-password"
+                    placeholder="Enter your password"
+                    value={loginData.password}
+                    onChange={handleChange}
+                    className={`${inputClass} pl-11 pr-16`}
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md px-1 py-1 text-xs font-semibold text-[#483AEA] hover:text-[#3325B9] focus:outline-none focus:ring-2 focus:ring-[#483AEA]/30"
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </button>
+                </div>
+
+                <p className="mt-2 text-xs text-gray-400">
+                  Enter the password associated with your account.
+                </p>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="group mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#483AEA] px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#483AEA]/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#3a2db8] hover:shadow-xl hover:shadow-[#483AEA]/25 focus:outline-none focus:ring-4 focus:ring-[#483AEA]/20 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+              >
+                {loading ? (
+                  <>
+                    <svg
+                      className="h-5 w-5 animate-spin"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-90"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 0 1 8-8V0C5.373 0 0 5.373 0 12h4z"
+                      />
+                    </svg>
+                    Signing in...
+                  </>
+                ) : (
+                  <>
+                    Sign In
+                    <svg
+                      className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </>
+                )}
+              </button>
+            </form>
+
+            {/* Signup Link */}
+            <p className="mt-7 text-center text-sm text-gray-500">
+              Don't have an account?{" "}
+              <Link
+                to="/sign-up"
+                className="font-semibold text-[#483AEA] transition-colors hover:text-[#3325B9] hover:underline"
+              >
+                Create an account
+              </Link>
+            </p>
+
+            {/* Security Footer */}
+            <div className="mt-8 flex items-center justify-center gap-2 text-xs text-gray-400">
+              <svg
+                className="h-4 w-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="4" y="10" width="16" height="11" rx="2" />
+                <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+              </svg>
+              Secure sign in to your account
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        theme="light"
+      />
+    </div>
+  );
+};
+
 export default Login;

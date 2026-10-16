@@ -4,6 +4,7 @@ import { Stats } from '../Components/homePageComponents/Stats'
 import { Feature } from '../Components/homePageComponents/Feature'
 import About from '../Components/homePageComponents/About'
 import Contact from '../Components/homePageComponents/Contact'
+import Footer from '../Components/homePageComponents/Footer'
 
 const Home = () => {
     return (
@@ -14,6 +15,7 @@ const Home = () => {
             <Feature />
             <About />
             <Contact/>
+            <Footer />
         </div>
     );
 }

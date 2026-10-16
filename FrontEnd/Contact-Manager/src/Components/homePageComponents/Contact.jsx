@@ -98,7 +98,7 @@ const ContactPage = () => {
     return (
         <main className="min-h-screen overflow-hidden bg-gradient-to-b
       from-violet-50 via-white to-white px-4 py-12
-      sm:px-6 sm:py-16 lg:px-12 lg:py-20">
+      sm:px-6 sm:py-16 lg:px-12 lg:py-20" id="contact">
 
             <div className="mx-auto max-w-7xl">
 
@@ -226,8 +226,7 @@ const ContactPage = () => {
                                 <div>
                                     <p className="font-semibold">Form submitted!</p>
                                     <p className="mt-1 text-sm">
-                                        This is a demo confirmation. Connect the form
-                                        to your backend to actually send your message.
+                                        Thank you for reaching out. We'll get back to you as soon as possible.
                                     </p>
                                 </div>
                             </div>

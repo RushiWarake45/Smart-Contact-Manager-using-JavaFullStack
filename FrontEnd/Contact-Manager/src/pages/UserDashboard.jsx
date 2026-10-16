@@ -138,65 +138,61 @@ const handleContactUpdated = (updatedContact) => {
         fetchUserData();
     }, []);
 
-    return (
-        <>
-            <div className="h-screen flex flex-col">
+   
+return (
+  <div className="flex h-dvh flex-col overflow-hidden bg-gray-50">
+    <DashboardNavbar user={user} />
 
-                <DashboardNavbar user={user} />
+    <main className="flex min-h-0 flex-1 overflow-hidden">
+      {/* Contact list: hidden on mobile after selecting a contact */}
+      <div
+        className={`min-h-0 min-w-0 flex-1 flex-col overflow-hidden md:flex md:w-[340px] md:flex-none md:border-r md:border-gray-200 lg:w-[380px] ${
+          selectedContact ? "hidden" : "flex"
+        }`}
+      >
+        <ContactList
+          contacts={contacts}
+          selectedContact={selectedContact}
+          setSelectedContact={setSelectedContact}
+          setShowAddContact={setShowAddContact}
+          currFilter={currFilter}
+          setCurrFilter={setCurrFilter}
+          allCount={allCount}
+          favoriteCount={favoriteCount}
+          clientsCount={clientsCount}
+          partnersCount={partnersCount}
+          friendsCount={friendsCount}
+          workCount={workCount}
+        />
+      </div>
 
-                {/* Dashboard */}
-                <div className="flex min-h-[calc(100vh-73px)]">
+      {/* Contact details: full screen on mobile, right panel on desktop */}
+      <div
+        className={`min-h-0 min-w-0 flex-1 overflow-y-auto ${
+          selectedContact ? "flex" : "hidden md:flex"
+        }`}
+      >
+        <ContactDetails
+          contact={selectedContact}
+          selectedContact={selectedContact}
+          handleDelete={handleDelete}
+          onFavoriteUpdate={handleFavouriteUpdate}
+          setShowEditContact={setShowEditContact}
+          showEditContact={showEditContact}
+          onContactUpdated={handleContactUpdated}
+          onBack={() => setSelectedContact(null)}
+        />
+      </div>
 
-                    {/* Left sidebar */}
-                    <Sidebar 
-                    allCount={allCount}
-                    favoriteCount={favoriteCount}
-                    clientsCount={clientsCount}
-                    partnersCount={partnersCount}
-                    friendsCount={friendsCount}
-                    workCount={workCount}
-                    setCurrFilter={setCurrFilter}
-                    currFilter={currFilter}
-                    />
+      {showAddContact && (
+        <AddContactModal
+          onClose={() => setShowAddContact(false)}
+          onContactAdded={handleContactAdded}
+        />
+      )}
+    </main>
+  </div>
+);
 
-
-                    {/* Contact list */}
-                    <ContactList
-                        contacts={contacts}
-                        selectedContact={selectedContact}
-                        setSelectedContact={setSelectedContact}
-                        setShowAddContact={setShowAddContact}
-                        currFilter={currFilter}
-                        // isFavorite={isFavorite}
-                    />
-
-
-                    {/* Contact details */}
-                    <ContactDetails
-                        contact={selectedContact}
-                        selectedContact={selectedContact}
-                        handleDelete={handleDelete}
-                        // setIsFavorite={setIsFavorite}
-                        // isFavorite={isFavorite}
-                        onFavoriteUpdate={handleFavouriteUpdate}
-                        setShowEditContact={setShowEditContact}
-                        showEditContact={showEditContact}
-                        onContactUpdated={handleContactUpdated}
-
-                    />
-
-                    {showAddContact && (
-                        <AddContactModal
-                            onClose={() => setShowAddContact(false)}
-                            onContactAdded={handleContactAdded}
-                            
-                        />
-                    )}
-
-                </div>
-
-            </div>
-        </>
-    );
 }
 export default Userdashboard;

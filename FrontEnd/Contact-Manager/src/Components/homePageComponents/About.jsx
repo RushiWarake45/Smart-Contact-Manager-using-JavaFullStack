@@ -125,7 +125,7 @@ export default function About() {
               <div className="mt-6 grid grid-cols-2 gap-4">
                 <div className="rounded-2xl bg-violet-50 p-5">
                   <FiUsers className="text-violet-600" size={23} />
-                  <p className="mt-4 text-3xl font-extrabold">People</p>
+                  <p className="mt-4 text-2xl font-extrabold">People</p>
                   <p className="mt-1 text-sm text-slate-500">
                     All in one place
                   </p>
@@ -133,7 +133,7 @@ export default function About() {
 
                 <div className="rounded-2xl bg-blue-50 p-5">
                   <FiStar className="text-blue-600" size={23} />
-                  <p className="mt-4 text-3xl font-extrabold">Favourites</p>
+                  <p className="mt-4 text-2xl font-extrabold">Favourites</p>
                   <p className="mt-1 text-sm text-slate-500">
                     Your important people
                   </p>
