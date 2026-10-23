@@ -13,6 +13,7 @@ import {
 } from "react-icons/fi";
 import axios from "axios";
 import { toast } from "react-toastify";
+import API_BASE_URL from "../../api/api";
 
 export const AddContactModal = ({ onClose, onContactAdded }) => {
   const [formData, setFormData] = useState({
@@ -77,7 +78,7 @@ export const AddContactModal = ({ onClose, onContactAdded }) => {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        "http://localhost:8080/contacts",
+        `${API_BASE_URL}/contacts`,
         formData,
         {
           headers: {

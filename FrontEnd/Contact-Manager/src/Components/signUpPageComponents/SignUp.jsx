@@ -5,7 +5,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
+
 import { FiArrowLeft } from "react-icons/fi";
+import API_BASE_URL from "../../api/api";
 
 
 const SignUp = () => {
@@ -61,7 +63,7 @@ const SignUp = () => {
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:8080/users",
+        `${API_BASE_URL}/users`,
         formData
       );
 

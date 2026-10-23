@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { IoClose } from "react-icons/io5";
+import API_BASE_URL from "../../api/api";
 import {
     FiUser,
     FiMail,
@@ -76,7 +77,7 @@ export const EditContactModal = ({
             const token = localStorage.getItem("token");
 
             const response = await axios.put(
-                `http://localhost:8080/contacts/${contact.id}`,
+                `${API_BASE_URL}/contacts/${contact.id}`,
                 formData,
                 {
                     headers: {

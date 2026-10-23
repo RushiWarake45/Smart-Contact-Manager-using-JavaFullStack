@@ -6,6 +6,7 @@ import ContactList from "../Components/userDashboardComponents/ContactList";
 import { AddContactModal } from "../Components/userDashboardComponents/AddContactModal";
 import ContactDetails from "../Components/userDashboardComponents/ContactDetails";
 import { toast } from "react-toastify";
+import API_BASE_URL from "../api/api";
 
 const Userdashboard = () => {
     const [user, setUser] = useState(null);
@@ -31,7 +32,7 @@ const Userdashboard = () => {
 
 
         await axios.delete(
-            `http://localhost:8080/contacts/${id}`,
+            `${API_BASE_URL}/contacts/${id}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -92,7 +93,7 @@ const handleContactUpdated = (updatedContact) => {
                     console.error("No token found in localStorage");
                     return;
                 }
-                const response = await axios.get("http://localhost:8080/contacts", {
+                const response = await axios.get(`${API_BASE_URL}/contacts`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }
@@ -121,7 +122,7 @@ const handleContactUpdated = (updatedContact) => {
                     console.error("No token found in localStorage");
                     return;
                 }
-                const response = await axios.get("http://localhost:8080/users/me", {
+                const response = await axios.get(`${API_BASE_URL}/users/me`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }

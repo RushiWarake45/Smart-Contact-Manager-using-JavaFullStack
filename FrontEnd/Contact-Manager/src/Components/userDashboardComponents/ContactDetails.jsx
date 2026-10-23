@@ -16,6 +16,7 @@ import { GoTrash } from "react-icons/go";
 import { useState } from "react";
 import axios from "axios";
 import { EditContactModal } from "./editContactModal";
+import API_BASE_URL from "../../api/api";
 
 const ContactDetails = ({
   contact,
@@ -57,7 +58,7 @@ const ContactDetails = ({
       const token = localStorage.getItem("token");
 
       const response = await axios.put(
-        `http://localhost:8080/contacts/${selectedContact.id}/favorite`,
+        `${API_BASE_URL}/contacts/${selectedContact.id}/favorite`,
         {},
         {
           headers: {

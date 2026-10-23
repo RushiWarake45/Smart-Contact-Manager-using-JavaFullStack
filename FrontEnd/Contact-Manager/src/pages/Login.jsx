@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FiArrowLeft } from "react-icons/fi";
+import API_BASE_URL from "../api/api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ const Login = () => {
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:8080/auth/login",
+        `${API_BASE_URL}/auth/login`,
         loginData
       );
 
