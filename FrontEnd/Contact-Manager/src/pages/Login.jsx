@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FiArrowLeft } from "react-icons/fi";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -73,6 +74,21 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-[#F7F8FC] px-4 py-6 sm:px-6 lg:px-8">
+    <button
+    type="button"
+    onClick={() => navigate("/")}
+    className="inline-flex items-center gap-2
+               rounded-lg px-3 py-2
+               text-sm sm:text-base
+               text-gray-600
+               hover:bg-gray-100 hover:text-blue-600
+               transition-all duration-200
+               focus:outline-none focus:ring-2
+               focus:ring-blue-500"
+>
+    <FiArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+    <span>Back</span>
+</button>
       <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-6xl items-center justify-center">
 
         {/* Main Login Card */}
