@@ -16,7 +16,7 @@ import { GoTrash } from "react-icons/go";
 import { useState } from "react";
 import axios from "axios";
 // import { EditContactModal } from "./EditContactModal";
-import EditContactModal from "./EditContactModal";
+import {EditContactModal} from "./EditContactModal";
 import API_BASE_URL from "../../api/api";
 
 const ContactDetails = ({
